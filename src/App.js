@@ -1,5 +1,12 @@
 import './App.css';
+import Home from '../src/views/Home';
 import Counter from './Counter'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
 
@@ -28,12 +35,25 @@ function App() {
   // and return on the return statement also
 
   return (
-    <>
-      {
-        array.map((counter, i) => <Counter key={i} appName={counter.appName} counterValue={counter.counterValue} />)
-      }
-    </>
+    <Router>
+      <ul>
+        <li><Link to="/home">Home</Link></li>
+        <li><Link to="/counters">Counters</Link></li>
+      </ul>
+      
+      <Switch>
+        <Route exact path="/counters">
+          {
+            array.map((counter, i) => <Counter key={i} appName={counter.appName} counterValue={counter.counterValue} />)
+          }
+        </Route>
+        <Route exact path="/home">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
+
 
 export default App;
